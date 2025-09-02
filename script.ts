@@ -8,6 +8,7 @@ const shoppingListElement = document.getElementById("shoppingList") as HTMLDivEl
 
 let shoppingList: Record<string, string[]> = {};
 
+
 function renderCategories(): void {
   categoriesContainer.innerHTML = "";
 
@@ -19,6 +20,7 @@ function renderCategories(): void {
     categoriesContainer.appendChild(catBtn);
   });
 }
+
 
 function renderList(): void {
   shoppingListElement.innerHTML = "";
@@ -80,7 +82,7 @@ function updateCategorySelect(): void {
       categorySelect.appendChild(option);
     });
 
-  
+
     const newOption = document.createElement("option");
     newOption.value = "new";
     newOption.textContent = "+ Nova Categoria";
@@ -93,6 +95,7 @@ function addItem(): void {
   let category: string = "";
   const item = itemInput.value.trim();
 
+  // Categoria obrigatória na primeira vez
   if (Object.keys(shoppingList).length === 0) {
     category = categoryInput.value.trim();
     if (!category) {
@@ -107,6 +110,7 @@ function addItem(): void {
       category = categorySelect.value;
     }
   }
+
 
   if (!item) {
     alert("Item adicionado!");
@@ -125,6 +129,7 @@ function addItem(): void {
   renderCategories();
   renderList();
 }
+
 
 function exportCSV(): void {
   let csvContent = "Categoria,Item\n";
@@ -145,6 +150,11 @@ function exportCSV(): void {
   a.click();
   document.body.removeChild(a);
 }
+
+
+addBtn.addEventListener("click", addItem);
+exportBtn.addEventListener("click", exportCSV);
+
 
 declare global {
   interface Window {
