@@ -145,3 +145,48 @@ function exportCSV(): void {
   a.click();
   document.body.removeChild(a);
 }
+
+declare global {
+  interface Window {
+    jspdf: any;
+  }
+}
+
+const exportPdfBtn = document.getElementById("exportPdfBtn") as HTMLButtonElement;
+
+
+function exportPDF(): void {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(18);
+  doc.text("Lista de Compras", 105, 15, { align: "center" });
+
+  let y = 30;
+  doc.setFontSize(12);
+  doc.setFont("helvetica", "normal");
+
+  for (const category in shoppingList) {
+    doc.setFont("helvetica", "bold");
+    doc.text(category, 15, y);
+    y += 7;
+
+    doc.setFont("helvetica", "normal");
+    shoppingList[category].forEach((item) => {
+      doc.text(`- ${item}`, 20, y);
+      y += 7;
+
+      if (y > 280) { 
+        doc.addPage();
+        y = 20;
+      }
+    });
+
+    y += 5;
+  }
+
+  doc.save("lista_de_compras.pdf");
+}
+
+exportPdfBtn.addEventListener("click", exportPDF);
