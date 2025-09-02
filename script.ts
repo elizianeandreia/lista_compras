@@ -80,10 +80,30 @@ function updateCategorySelect(): void {
       categorySelect.appendChild(option);
     });
 
-    // opção para criar nova categoria
+  
     const newOption = document.createElement("option");
     newOption.value = "new";
     newOption.textContent = "+ Nova Categoria";
     categorySelect.appendChild(newOption);
   }
 }
+
+
+function addItem(): void {
+  let category: string = "";
+  const item = itemInput.value.trim();
+
+  if (Object.keys(shoppingList).length === 0) {
+    category = categoryInput.value.trim();
+    if (!category) {
+      alert("Digite uma categoria!");
+      return;
+    }
+  } else {
+    if (categorySelect.value === "new") {
+      category = prompt("Digite o nome da nova categoria:")?.trim() || "";
+      if (!category) return;
+    } else {
+      category = categorySelect.value;
+    }
+  }
