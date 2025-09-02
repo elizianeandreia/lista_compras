@@ -72,3 +72,21 @@ button {
 button:hover {
   background: #0652dd;
 }
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.category-btn {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+  background: linear-gradient(45deg, #636e72, #2d3436);
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: default;
+}
