@@ -59,3 +59,31 @@ function renderList(): void {
     shoppingListElement.appendChild(categoryDiv);
   }
 }
+
+
+function updateCategorySelect(): void {
+  categorySelect.innerHTML = "";
+
+  const categories = Object.keys(shoppingList);
+
+  if (categories.length === 0) {
+    categorySelect.style.display = "none";
+    categoryInput.style.display = "inline-block";
+  } else {
+    categorySelect.style.display = "inline-block";
+    categoryInput.style.display = "none";
+
+    categories.forEach((cat) => {
+      const option = document.createElement("option");
+      option.value = cat;
+      option.textContent = cat;
+      categorySelect.appendChild(option);
+    });
+
+    // opção para criar nova categoria
+    const newOption = document.createElement("option");
+    newOption.value = "new";
+    newOption.textContent = "+ Nova Categoria";
+    categorySelect.appendChild(newOption);
+  }
+}
