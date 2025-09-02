@@ -107,3 +107,21 @@ function addItem(): void {
       category = categorySelect.value;
     }
   }
+
+  if (!item) {
+    alert("Item adicionado!");
+    return;
+  }
+
+  if (!shoppingList[category]) {
+    shoppingList[category] = [];
+  }
+
+  shoppingList[category].push(item);
+
+  itemInput.value = "";
+
+  updateCategorySelect();
+  renderCategories();
+  renderList();
+}
