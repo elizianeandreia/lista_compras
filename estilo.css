@@ -132,3 +132,20 @@ ul li {
 .remove-item:hover {
   background: #c0392b;
 }
+
+@media (max-width: 500px) {
+  .container-main {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  input[type="text"],
+  select,
+  button {
+    flex: 100%;
+    min-width: unset;
+  }
+}
