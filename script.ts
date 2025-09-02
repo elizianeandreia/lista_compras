@@ -7,3 +7,15 @@ const categoriesContainer = document.getElementById("categoriesContainer") as HT
 const shoppingListElement = document.getElementById("shoppingList") as HTMLDivElement;
 
 let shoppingList: Record<string, string[]> = {};
+
+function renderCategories(): void {
+  categoriesContainer.innerHTML = "";
+
+  Object.keys(shoppingList).forEach((category) => {
+    const catBtn = document.createElement("button");
+    catBtn.textContent = category;
+    catBtn.classList.add("category-btn");
+
+    categoriesContainer.appendChild(catBtn);
+  });
+}
