@@ -125,3 +125,23 @@ function addItem(): void {
   renderCategories();
   renderList();
 }
+
+function exportCSV(): void {
+  let csvContent = "Categoria,Item\n";
+
+  for (const category in shoppingList) {
+    shoppingList[category].forEach((item) => {
+      csvContent += `"${category}","${item}"\n`;
+    });
+  }
+
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "lista_de_compras.csv";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
