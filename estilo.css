@@ -1,3 +1,4 @@
+
 * {
   margin: 0;
   padding: 0;
@@ -6,38 +7,40 @@
 }
 
 body {
-  background: linear-gradient(135deg, #eceff1, #f5f7fa);
+  background: linear-gradient(135deg, #f6fafd 0%, #e9f1fb 100%);
   display: flex;
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
   padding: 20px;
-  color: #333;
+  color: #232a34;
 }
 
 .container-main {
-  background: #ffffff;
+  background: #fff;
   width: 100%;
   max-width: 600px;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 32px 28px;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08), 0 1.5px 0 #0ff2ff22 inset;
+  border: 1.5px solid #e3e8ee;
 }
-
 
 h1 {
   text-align: center;
-  margin-bottom: 20px;
-  color: #2d3436;
-  font-size: 1.8rem;
+  margin-bottom: 24px;
+  color: #1e90ff;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+  text-shadow: 0 2px 8px #0ff2ff22;
 }
-
 
 .container {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 22px;
   justify-content: center;
 }
 
@@ -45,63 +48,76 @@ input[type="text"],
 select {
   flex: 1;
   min-width: 150px;
-  padding: 12px;
-  border: 1px solid #dcdde1;
-  border-radius: 8px;
+  padding: 13px 14px;
+  border: 1.5px solid #c7d6e6;
+  border-radius: 10px;
+  background: #f6fafd;
+  color: #232a34;
   outline: none;
-  transition: border 0.3s;
+  transition: border 0.3s, box-shadow 0.3s;
   font-size: 1rem;
+  box-shadow: 0 1px 4px #0ff2ff11 inset;
 }
 
 input:focus,
 select:focus {
-  border-color: #0984e3;
+  border-color: #1e90ff;
+  box-shadow: 0 0 8px #1e90ff33;
 }
 
 button {
-  padding: 12px 18px;
+  padding: 13px 22px;
   border: none;
-  border-radius: 8px;
-  background: #0984e3;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #0ff2ff 0%, #1e90ff 100%);
   color: #fff;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 8px #0ff2ff22;
+  letter-spacing: 0.5px;
 }
 
 button:hover {
-  background: #0652dd;
+  background: linear-gradient(90deg, #1e90ff 0%, #0ff2ff 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px #0ff2ff33;
 }
+
 
 .categories {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 20px;
+  gap: 10px;
+  margin-bottom: 22px;
   justify-content: center;
 }
 
 .category-btn {
-  padding: 8px 14px;
-  border-radius: 20px;
+  padding: 8px 18px;
+  border-radius: 22px;
   border: none;
-  background: linear-gradient(45deg, #636e72, #2d3436);
-  color: #fff;
-  font-size: 0.9rem;
+  background: linear-gradient(90deg, #e9f1fb 60%, #0ff2ff 100%);
+  color: #1e90ff;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: default;
+  box-shadow: 0 1px 6px #0ff2ff11;
 }
 
 
 .category {
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .category h3 {
-  margin-bottom: 8px;
-  color: #2d3436;
-  font-size: 1.1rem;
-  border-bottom: 1px solid #dfe6e9;
-  padding-bottom: 4px;
+  margin-bottom: 10px;
+  color: #1e90ff;
+  font-size: 1.15rem;
+  border-bottom: 1.5px solid #c7d6e6;
+  padding-bottom: 5px;
+  letter-spacing: 0.5px;
 }
 
 ul {
@@ -110,36 +126,43 @@ ul {
 }
 
 ul li {
-  background: #f8f9fa;
-  padding: 10px;
-  margin-bottom: 8px;
-  border-radius: 8px;
+  background: #f6fafd;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: 1.2px solid #e3e8ee;
+  box-shadow: 0 1px 6px #0ff2ff11;
 }
 
 .remove-item {
-  background: #d63031;
-  color: white;
+  background: linear-gradient(90deg, #ff6a5b 0%, #ffb86c 100%);
+  color: #fff;
   border: none;
-  padding: 5px 10px;
-  border-radius: 6px;
+  padding: 7px 14px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 0.3s, box-shadow 0.3s;
+  box-shadow: 0 1px 6px #ffb86c22;
 }
 
 .remove-item:hover {
-  background: #c0392b;
+  background: linear-gradient(90deg, #ffb86c 0%, #ff6a5b 100%);
+  box-shadow: 0 2px 12px #ffb86c44;
 }
+
 
 @media (max-width: 500px) {
   .container-main {
-    padding: 15px;
+    padding: 12px;
   }
 
   h1 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   input[type="text"],

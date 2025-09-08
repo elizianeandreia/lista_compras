@@ -6,6 +6,7 @@ var exportBtn = document.getElementById("exportBtn");
 var categoriesContainer = document.getElementById("categoriesContainer");
 var shoppingListElement = document.getElementById("shoppingList");
 var shoppingList = {};
+var lastModified = null;
 function renderCategories() {
     categoriesContainer.innerHTML = "";
     Object.keys(shoppingList).forEach(function (category) {
@@ -14,6 +15,25 @@ function renderCategories() {
         catBtn.classList.add("category-btn");
         categoriesContainer.appendChild(catBtn);
     });
+}
+function updateLastModified() {
+    lastModified = new Date();
+    renderLastModified();
+}
+function renderLastModified() {
+    var _a;
+    var lastModifiedDiv = document.getElementById("lastModified");
+    if (!lastModifiedDiv) {
+        lastModifiedDiv = document.createElement("div");
+        lastModifiedDiv.id = "lastModified";
+        (_a = shoppingListElement.parentElement) === null || _a === void 0 ? void 0 : _a.insertBefore(lastModifiedDiv, shoppingListElement);
+    }
+    if (lastModified) {
+        lastModifiedDiv.textContent = "\u00DAltima modifica\u00E7\u00E3o: ".concat(lastModified.toLocaleString());
+    }
+    else {
+        lastModifiedDiv.textContent = "";
+    }
 }
 function renderList() {
     shoppingListElement.innerHTML = "";
@@ -36,6 +56,7 @@ function renderList() {
                     delete shoppingList[category];
                     updateCategorySelect();
                 }
+                updateLastModified();
                 renderCategories();
                 renderList();
             });
@@ -75,7 +96,6 @@ function addItem() {
     var _a;
     var category = "";
     var item = itemInput.value.trim();
-    // Categoria obrigatória na primeira vez
     if (Object.keys(shoppingList).length === 0) {
         category = categoryInput.value.trim();
         if (!category) {
@@ -94,7 +114,7 @@ function addItem() {
         }
     }
     if (!item) {
-        alert("Item adicionado!");
+        alert("Digite um item!");
         return;
     }
     if (!shoppingList[category]) {
@@ -105,6 +125,7 @@ function addItem() {
     updateCategorySelect();
     renderCategories();
     renderList();
+    updateLastModified();
 }
 function exportCSV() {
     var csvContent = "Categoria,Item\n";

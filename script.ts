@@ -7,24 +7,39 @@ const categoriesContainer = document.getElementById("categoriesContainer") as HT
 const shoppingListElement = document.getElementById("shoppingList") as HTMLDivElement;
 
 let shoppingList: Record<string, string[]> = {};
-
+let lastModified: Date | null = null;
 
 function renderCategories(): void {
   categoriesContainer.innerHTML = "";
-
   Object.keys(shoppingList).forEach((category) => {
     const catBtn = document.createElement("button");
     catBtn.textContent = category;
     catBtn.classList.add("category-btn");
-
     categoriesContainer.appendChild(catBtn);
   });
 }
 
+function updateLastModified() {
+  lastModified = new Date();
+  renderLastModified();
+}
+
+function renderLastModified() {
+  let lastModifiedDiv = document.getElementById("lastModified");
+  if (!lastModifiedDiv) {
+    lastModifiedDiv = document.createElement("div");
+    lastModifiedDiv.id = "lastModified";
+    shoppingListElement.parentElement?.insertBefore(lastModifiedDiv, shoppingListElement);
+  }
+  if (lastModified) {
+    lastModifiedDiv.textContent = `Última modificação: ${lastModified.toLocaleString()}`;
+  } else {
+    lastModifiedDiv.textContent = "";
+  }
+}
 
 function renderList(): void {
   shoppingListElement.innerHTML = "";
-
   for (const category in shoppingList) {
     const categoryDiv = document.createElement("div");
     categoryDiv.classList.add("category");
@@ -49,6 +64,7 @@ function renderList(): void {
           delete shoppingList[category];
           updateCategorySelect();
         }
+        updateLastModified();
         renderCategories();
         renderList();
       });
@@ -62,10 +78,8 @@ function renderList(): void {
   }
 }
 
-
 function updateCategorySelect(): void {
   categorySelect.innerHTML = "";
-
   const categories = Object.keys(shoppingList);
 
   if (categories.length === 0) {
@@ -82,7 +96,6 @@ function updateCategorySelect(): void {
       categorySelect.appendChild(option);
     });
 
-
     const newOption = document.createElement("option");
     newOption.value = "new";
     newOption.textContent = "+ Nova Categoria";
@@ -90,12 +103,10 @@ function updateCategorySelect(): void {
   }
 }
 
-
 function addItem(): void {
   let category: string = "";
   const item = itemInput.value.trim();
 
-  // Categoria obrigatória na primeira vez
   if (Object.keys(shoppingList).length === 0) {
     category = categoryInput.value.trim();
     if (!category) {
@@ -111,9 +122,8 @@ function addItem(): void {
     }
   }
 
-
   if (!item) {
-    alert("Item adicionado!");
+    alert("Digite um item!");
     return;
   }
 
@@ -122,27 +132,23 @@ function addItem(): void {
   }
 
   shoppingList[category].push(item);
-
   itemInput.value = "";
 
   updateCategorySelect();
   renderCategories();
   renderList();
+  updateLastModified();
 }
-
 
 function exportCSV(): void {
   let csvContent = "Categoria,Item\n";
-
   for (const category in shoppingList) {
     shoppingList[category].forEach((item) => {
       csvContent += `"${category}","${item}"\n`;
     });
   }
-
   const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
-
   const a = document.createElement("a");
   a.href = url;
   a.download = "lista_de_compras.csv";
@@ -151,19 +157,15 @@ function exportCSV(): void {
   document.body.removeChild(a);
 }
 
-
 addBtn.addEventListener("click", addItem);
 exportBtn.addEventListener("click", exportCSV);
 
-
-declare global {
-  interface Window {
-    jspdf: any;
-  }
+interface Window {
+  jspdf: any;
 }
 
-const exportPdfBtn = document.getElementById("exportPdfBtn") as HTMLButtonElement;
 
+const exportPdfBtn = document.getElementById("exportPdfBtn") as HTMLButtonElement;
 
 function exportPDF(): void {
   const { jsPDF } = window.jspdf;
@@ -186,8 +188,7 @@ function exportPDF(): void {
     shoppingList[category].forEach((item) => {
       doc.text(`- ${item}`, 20, y);
       y += 7;
-
-      if (y > 280) { 
+      if (y > 280) {
         doc.addPage();
         y = 20;
       }
